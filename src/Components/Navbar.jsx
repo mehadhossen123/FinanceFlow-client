@@ -29,6 +29,7 @@ const links = (
   <li><NavLink to="/" className={isActive} > Home </NavLink> </li>
   <li><NavLink to="/addTransaction" className={isActive} > AddTransaction </NavLink> </li>
   <li><NavLink to="/reports" className={isActive} > Reports</NavLink> </li>
+  <li><NavLink to="/myTransaction" className={isActive} >My Transaction</NavLink> </li>
 
 {
   !user&&(
@@ -146,12 +147,7 @@ const links = (
                     Profile <CgProfile />
                   </Link>
                 </li>
-                <li>
-                  <Link className="text-sm" to="/myTransaction">
-                    My Transaction
-                    <GiTakeMyMoney />
-                  </Link>
-                </li>
+               
                 <li className="text-sm">
                   <a className="text-sm">
                     Settings <IoSettingsOutline />

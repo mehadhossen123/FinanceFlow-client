@@ -10,7 +10,7 @@ const AuthProvider = ({children}) => {
     const [error,setError]=useState("")
     const [user,setUser]=useState(null)
     const googleProvider=new GoogleAuthProvider();
-    console.log(user)
+    // console.log(user)
     
 
     //register
@@ -72,6 +72,7 @@ const userInfo = {
   userSignOut,
   googleLogin,
   updateUser,
+  setUser,
 };
 
     return <AuthContext.Provider value={userInfo}>
