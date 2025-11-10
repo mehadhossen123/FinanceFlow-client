@@ -7,6 +7,8 @@ import AuthContext from "../Auth/AuthContext";
 import { toast } from "react-toastify";
 import useAxiosSecure from "./Hooks/useAxiosSecure";
 import Loading from "../Components/Loading";
+import { Link } from "react-router";
+import Swal from "sweetalert2";
 
 const MyTransaction = () => {
   const { user} = useContext(AuthContext);
@@ -34,6 +36,66 @@ const MyTransaction = () => {
 
     fetchData();
   }, [user?.email]);
+
+
+
+// Handle delete transaction is here 
+const handleDeleteTransaction =(id)=>{
+ Swal.fire({
+   title: "Are you sure?",
+   text: "You won't be able to revert this!",
+   icon: "warning",
+   showCancelButton: true,
+   confirmButtonColor: "#3085d6",
+   cancelButtonColor: "#d33",
+   confirmButtonText: "Yes, delete it!",
+ }).then((result) => {
+   if (result.isConfirmed) {
+    // console.log("now deleted")
+
+  
+      if(!user)return
+
+  try{
+    const res = useSecure.delete(
+      `http://localhost:5000/add/${id}`
+    );
+    setMyTransaction(myTransaction.filter(item=>item._id!==id))
+
+  }
+  catch (e){
+    console.log(e)
+    Swal.fire({
+  icon: "error",
+  title: "Oops...",
+  text: "Something went wrong!",
+  footer: '<a href="#">Why do I have this issue?</a>'
+});
+
+  }
+
+
+
+
+
+   
+
+
+     Swal.fire({
+       title: "Deleted!",
+       text: "Your file has been deleted.",
+       icon: "success",
+     });
+
+
+
+
+
+   }
+ });
+
+}
+
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-500 via-purple-500 to-pink-500 px-4 py-10">
@@ -91,12 +153,18 @@ const MyTransaction = () => {
               <button className="flex-1 cursor-pointer bg-gradient-to-r from-indigo-600 to-purple-600 text-white py-2 rounded-lg text-sm font-semibold hover:from-indigo-700 hover:to-purple-700 transition shadow-md">
                 Update
               </button>
-              <button className="flex-1 cursor-pointer bg-gradient-to-r from-red-500 to-red-700 text-white py-2 rounded-lg text-sm font-semibold hover:from-red-600 hover:to-red-800 transition shadow-md">
+              <button
+                onClick={()=>handleDeleteTransaction(tx._id)}
+                className="flex-1 cursor-pointer bg-gradient-to-r from-red-500 to-red-700 text-white py-2 rounded-lg text-sm font-semibold hover:from-red-600 hover:to-red-800 transition shadow-md"
+              >
                 Delete
               </button>
-              <button className="flex-1 cursor-pointer bg-gradient-to-r from-gray-400 to-gray-600 text-white py-2 rounded-lg text-sm font-semibold hover:from-gray-500 hover:to-gray-700 transition shadow-md">
+              <Link
+                to={`/add/${tx._id}`}
+                className="flex-1 cursor-pointer bg-gradient-to-r from-gray-400 to-gray-600 text-white py-2 rounded-lg text-sm font-semibold hover:from-gray-500 hover:to-gray-700 transition text-center shadow-md"
+              >
                 View Details
-              </button>
+              </Link>
             </div>
           </div>
         ))}

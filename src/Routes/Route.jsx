@@ -11,6 +11,8 @@ import UpdateProfile from "../../UpdateProfile";
 import MyTransaction from "../Pages/MyTransaction";
 import Reports from "../Pages/Reports";
 import Error from "../Components/Error";
+import Details from "../Components/Details";
+import useAxiosSecure from "../Pages/Hooks/useAxiosSecure";
 
  const route = createBrowserRouter([
    {
@@ -26,20 +28,32 @@ import Error from "../Components/Error";
            </PrivateRoutes>
          ),
        },
-       { 
-        path:"/myTransaction",
-        element:<PrivateRoutes>
-            <MyTransaction></MyTransaction>
-        </PrivateRoutes>
-
-
+       {
+         path: "/myTransaction",
+         element: (
+           <PrivateRoutes>
+             <MyTransaction></MyTransaction>
+           </PrivateRoutes>
+         ),
        },
        {
-        path:"/reports",
-        element:<PrivateRoutes>
-            <Reports></Reports>
-        </PrivateRoutes>
-       }
+         path: "/reports",
+         element: (
+           <PrivateRoutes>
+             <Reports></Reports>
+           </PrivateRoutes>
+         ),
+       },
+       {
+         path: "/add/:id",
+         element: (
+           <PrivateRoutes>
+             <Details></Details>
+           </PrivateRoutes>
+         ),
+         loader: ({ params }) =>
+           fetch(`http://localhost:5000/add/${params.id}`),
+       },
      ],
    },
    {
@@ -65,9 +79,9 @@ import Error from "../Components/Error";
      ],
    },
    {
-    path:"/*",
-    element:<Error></Error>
-   }
+     path: "/*",
+     element: <Error></Error>,
+   },
  ]);
 
 export default route
