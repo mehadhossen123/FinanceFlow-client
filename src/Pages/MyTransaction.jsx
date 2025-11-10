@@ -7,9 +7,14 @@ import Loading from "../Components/Loading";
 import { Link } from "react-router";
 import Swal from "sweetalert2";
 
+
 const MyTransaction = () => {
   const { user } = useContext(AuthContext);
-  const [myTransaction, setMyTransaction] = useState([]);
+  const [myTransaction, setMyTransaction] = useState([])
+  const [transaction,setTransaction]=useState([])
+  // console.log(transaction);
+  
+
   const modalsRef = useRef();
 
   const useSecure = useAxiosSecure();
@@ -83,115 +88,77 @@ const MyTransaction = () => {
     });
   };
 
+  
+
   //handle update transaction
-  const handleUpdate = () => {
+  const handleUpdate = async(e) => {
+    e.preventDefault()
+    // console.log("hello i am from a handle delete")
+    const type=e.target.type.value;
+    const category=e.target.category.value;
+    const amount=e.target.amount.value;
+    const description=e.target.description.value;
+    const date=e.target.date.value;
+    console.log(type,category,amount,description,date);
+
+    const updateData={
+      type,category,amount,description,date
+    }
+
+    try{
+      const res=await useSecure.patch(`/add/update/${transaction._id}?email=${user?.email}`,updateData)
+        if (res.data?.modifiedCount > 0){
+            // const updatedTransactions = myTransaction.map((tx) =>
+            //   tx._id === transaction._id ? { ...tx, ...updateData } : tx
+            // );
+            const updatedTransactions=myTransaction.map(tx=>{
+              if(tx._id===transaction._id){
+                const updatedTx={...tx,...updateData}
+                return updatedTx
+              }
+              else{
+                return tx
+              }
+            })
+            setMyTransaction(updatedTransactions)
+        }
+        Swal.fire({
+          icon: "success",
+          title: "Updated!",
+          text: "Transaction updated successfully",
+          timer: 1500,
+          showConfirmButton: false,
+        });
+     
+     modalsRef.current.close()
+      
+
+    }
+    catch(e){
+      console.log(e)
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Something went wrong while updating!",
+      });
+
+    }
+    
+
+
+    
    
   };
 
-  const openModals=()=>{
+  const openModals=(tax)=>{
+    setTransaction(tax)
      modalsRef.current.showModal();
+
 
   }
 
   return (
     <>
-     
-      <dialog
-        ref={modalsRef}
-        id="my_modal_5"
-        className="modal modal-bottom sm:modal-middle"
-      >
-        <div className="modal-box">
-          {/* modal  form  is here  */}
-          <div>
-            <div>
-              <label className="block mb-1 font-medium text-gray-700">
-                Type
-              </label>
-              <select
-                name="type"
-                className="w-11/12 border border-gray-300 px-3 py-2 rounded-lg focus:ring-2 focus:ring-indigo-300 focus:border-indigo-500 transition"
-                required
-              >
-                <option value="Income">Income</option>
-                <option value="Expense">Expense</option>
-              </select>
-            </div>
-
-            {/* Category */}
-            <div>
-              <label className="block mb-1 font-medium text-gray-700">
-                Category
-              </label>
-              <select
-                name="category"
-                className="w-11/12 border border-gray-300 px-3 py-2 rounded-lg focus:ring-2 focus:ring-indigo-300 focus:border-indigo-500 transition"
-                required
-              >
-                <option value="">Select Category</option>
-                <option value="Salary">Salary</option>
-                <option value="Food">Food</option>
-                <option value="Transport">Transport</option>
-                <option value="Shopping">Shopping</option>
-                <option value="Entertainment">Entertainment</option>
-                <option value="Bills">Bills</option>
-                <option value="Investment">Investment</option>
-                <option value="Gift">Gift</option>
-                <option value="Freelance">Freelance</option>
-              </select>
-            </div>
-
-            {/* Amount */}
-            <div>
-              <label className="block mb-1 font-medium text-gray-700">
-                Amount
-              </label>
-              <input
-                type="number"
-                name="amount"
-                placeholder="Enter amount"
-                className="w-11/12 border border-gray-300 px-3 py-2 rounded-lg focus:ring-2 focus:ring-indigo-300 focus:border-indigo-500 transition"
-                required
-              />
-            </div>
-
-            {/* Description */}
-            <div>
-              <label className="block mb-1 font-medium text-gray-700">
-                Description
-              </label>
-              <textarea
-                name="description"
-                placeholder="Enter description"
-                className="w-11/12 border border-gray-300 px-3 py-2 rounded-lg focus:ring-2 focus:ring-indigo-300 focus:border-indigo-500 transition resize-none h-20"
-              />
-            </div>
-
-            {/* Date */}
-            <div>
-              <label className="block mb-1 font-medium text-gray-700">
-                Date
-              </label>
-              <input
-                type="date"
-                name="date"
-                className="w-11/12 border border-gray-300 px-3 py-2 rounded-lg focus:ring-2 focus:ring-indigo-300 focus:border-indigo-500 transition"
-                required
-              />
-            </div>
-            <button className="flex text-green-800 justify-center bg-amber-400 rounded-2xl mt-7 py-2 px-6 font-bold hover:bg-amber-200 cursor-pointer ">
-              Update
-            </button>
-          </div>
-
-          <div className="modal-action">
-            <form method="dialog">
-              {/* if there is a button in form, it will close the modal */}
-              <button className="btn">Close</button>
-            </form>
-          </div>
-        </div>
-      </dialog>
       <div className="min-h-screen bg-gradient-to-br from-blue-500 via-purple-500 to-pink-500 px-4 py-10">
         <h2 className="text-3xl font-extrabold text-white mb-8 text-center">
           My Transactions
@@ -245,7 +212,7 @@ const MyTransaction = () => {
               {/* Buttons */}
               <div className="flex gap-2 mt-auto">
                 <button
-                  onClick={openModals}
+                  onClick={() => openModals(tx)}
                   className="flex-1 cursor-pointer bg-gradient-to-r from-indigo-600 to-purple-600 text-white py-2 rounded-lg text-sm font-semibold hover:from-indigo-700 hover:to-purple-700 transition shadow-md"
                 >
                   Update
@@ -267,6 +234,112 @@ const MyTransaction = () => {
           ))}
         </div>
       </div>
+
+      {/* modal is here  */}
+      <dialog
+        ref={modalsRef}
+        id="my_modal_5"
+        className="modal modal-bottom sm:modal-middle"
+      >
+        <div className="modal-box">
+          {/* modal  form  is here  */}
+          <form onSubmit={handleUpdate}>
+            <div>
+              <label className="block mb-1 font-medium text-gray-700">
+                Type
+              </label>
+              <select
+                defaultValue={transaction.type}
+                name="type"
+                className="w-11/12 border border-gray-300 px-3 py-2 rounded-lg focus:ring-2 focus:ring-indigo-300 focus:border-indigo-500 transition"
+                required
+              >
+                <option value="Income">Income</option>
+                <option value="Expense">Expense</option>
+              </select>
+            </div>
+
+            {/* Category */}
+            <div>
+              <label className="block mb-1 font-medium text-gray-700">
+                Category
+              </label>
+              <select
+                name="category"
+                className="w-11/12 border border-gray-300 px-3 py-2 rounded-lg focus:ring-2 focus:ring-indigo-300 focus:border-indigo-500 transition"
+                required
+                defaultValue={transaction.category}
+              >
+                <option value="">Select Category</option>
+                <option value="Salary">Salary</option>
+                <option value="Food">Food</option>
+                <option value="Transport">Transport</option>
+                <option value="Shopping">Shopping</option>
+                <option value="Entertainment">Entertainment</option>
+                <option value="Bills">Bills</option>
+                <option value="Investment">Investment</option>
+                <option value="Gift">Gift</option>
+                <option value="Freelance">Freelance</option>
+              </select>
+            </div>
+
+            {/* Amount */}
+            <div>
+              <label className="block mb-1 font-medium text-gray-700">
+                Amount
+              </label>
+              <input
+                defaultValue={transaction.amount}
+                type="number"
+                name="amount"
+                placeholder="Enter amount"
+                className="w-11/12 border border-gray-300 px-3 py-2 rounded-lg focus:ring-2 focus:ring-indigo-300 focus:border-indigo-500 transition"
+                required
+              />
+            </div>
+
+            {/* Description */}
+            <div>
+              <label className="block mb-1 font-medium text-gray-700">
+                Description
+              </label>
+              <textarea
+                defaultValue={transaction.description}
+                name="description"
+                placeholder="Enter description"
+                className="w-11/12 border border-gray-300 px-3 py-2 rounded-lg focus:ring-2 focus:ring-indigo-300 focus:border-indigo-500 transition resize-none h-20"
+              />
+            </div>
+
+            {/* Date */}
+            <div>
+              <label className="block mb-1 font-medium text-gray-700">
+                Date
+              </label>
+              <input
+                defaultValue={transaction.date}
+                type="date"
+                name="date"
+                className="w-11/12 border border-gray-300 px-3 py-2 rounded-lg focus:ring-2 focus:ring-indigo-300 focus:border-indigo-500 transition"
+                required
+              />
+            </div>
+            <button
+             type="submit"
+              className="flex text-green-800 justify-center bg-amber-400 rounded-2xl mt-7 py-2 px-6 font-bold hover:bg-amber-200 cursor-pointer "
+            >
+              Update
+            </button>
+          </form>
+
+          <div className="modal-action">
+            <form method="dialog">
+              {/* if there is a button in form, it will close the modal */}
+              <button className="btn">Close</button>
+            </form>
+          </div>
+        </div>
+      </dialog>
     </>
   );
 };
