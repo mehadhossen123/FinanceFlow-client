@@ -1,48 +1,22 @@
-// import React, { useContext, useEffect, useState } from "react";
-// import useAxios from "./Hooks/useAxios";
-// import AuthContext from "../Auth/AuthContext";
-// import { toast } from "react-toastify";
-
-// const MyTransaction = () => {
-//   const { user } = useContext(AuthContext);
-//   const [myTransaction, setMyTransaction] = useState([]);
-//   const axios = useAxios();
-
-//   // Fetch my transactions from the server
-//   useEffect(() => {
-//     if (!user?.email) return;
-
-//     const fetchData = async () => {
-//       try {
-//         const res = await axios.get(`/add?email=${user?.email}`);
-//         setMyTransaction(res.data);
-//       } catch (error) {
-//         toast.error("Failed to fetch transactions");
-//         console.error(error);
-//       }
-//     };
-
-//     fetchData();
-//   }, [user?.email]);
-
-//   return (
-//    <div></div>
-//   );
-// };
-
-// export default MyTransaction;
 
 
 
 import React, { useContext, useEffect, useState } from "react";
-import useAxios from "./Hooks/useAxios";
+
 import AuthContext from "../Auth/AuthContext";
 import { toast } from "react-toastify";
+import useAxiosSecure from "./Hooks/useAxiosSecure";
+import Loading from "../Components/Loading";
 
 const MyTransaction = () => {
-  const { user } = useContext(AuthContext);
+  const { user} = useContext(AuthContext);
   const [myTransaction, setMyTransaction] = useState([]);
-  const axios = useAxios();
+
+  const useSecure=useAxiosSecure()
+
+  // if(loading){
+  //   return<Loading></Loading>
+  // }
 
   // Fetch my transactions from the server
   useEffect(() => {
@@ -50,7 +24,7 @@ const MyTransaction = () => {
 
     const fetchData = async () => {
       try {
-        const res = await axios.get(`/add?email=${user?.email}`);
+        const res = await useSecure.get(`/add?email=${user?.email}`);
         setMyTransaction(res.data);
       } catch (error) {
         toast.error("Failed to fetch transactions");
@@ -114,14 +88,14 @@ const MyTransaction = () => {
 
             {/* Buttons */}
             <div className="flex gap-2 mt-auto">
-              <button className="flex-1 bg-gradient-to-r from-indigo-600 to-purple-600 text-white py-2 rounded-lg text-sm font-semibold hover:from-indigo-700 hover:to-purple-700 transition shadow-md">
+              <button className="flex-1 cursor-pointer bg-gradient-to-r from-indigo-600 to-purple-600 text-white py-2 rounded-lg text-sm font-semibold hover:from-indigo-700 hover:to-purple-700 transition shadow-md">
                 Update
               </button>
-              <button className="flex-1 bg-gradient-to-r from-red-500 to-red-700 text-white py-2 rounded-lg text-sm font-semibold hover:from-red-600 hover:to-red-800 transition shadow-md">
+              <button className="flex-1 cursor-pointer bg-gradient-to-r from-red-500 to-red-700 text-white py-2 rounded-lg text-sm font-semibold hover:from-red-600 hover:to-red-800 transition shadow-md">
                 Delete
               </button>
-              <button className="flex-1 bg-gradient-to-r from-gray-400 to-gray-600 text-white py-2 rounded-lg text-sm font-semibold hover:from-gray-500 hover:to-gray-700 transition shadow-md">
-                View
+              <button className="flex-1 cursor-pointer bg-gradient-to-r from-gray-400 to-gray-600 text-white py-2 rounded-lg text-sm font-semibold hover:from-gray-500 hover:to-gray-700 transition shadow-md">
+                View Details
               </button>
             </div>
           </div>
