@@ -1,35 +1,60 @@
-import axios from 'axios';
-import React, { useContext, useEffect } from 'react';
-import AuthContext from '../../Auth/AuthContext';
+// import axios from 'axios';
+// import React, { useContext, useEffect } from 'react';
+// import AuthContext from '../../Auth/AuthContext';
 
-const useAxiosSecure = () => {
-  const {user}=useContext(AuthContext);
-  const instance = axios.create({
-    baseURL: "http://localhost:5000",
-  });
+// const useAxiosSecure = () => {
+//   const {user}=useContext(AuthContext);
+//   const instance = axios.create({
+//     baseURL: "http://localhost:5000",
+//   });
 
-useEffect(()=>{
+// useEffect(()=>{
 
-const requestInterceptor = instance.interceptors.request.use((config) => {
-  if (user?.accessToken) {
-    config.headers.Authorization = `Bearer ${user?.accessToken}`;
-  }
+// const requestInterceptor = instance.interceptors.request.use((config) => {
+//   if (user?.accessToken) {
+//     config.headers.Authorization = `Bearer ${user?.accessToken}`;
+//   }
 
-  return config;
-});
+//   return config;
+// });
 
 
-return()=>{
-    instance.interceptors.request.eject(requestInterceptor)
-}
+// return()=>{
+//     instance.interceptors.request.eject(requestInterceptor)
+// }
     
 
-},[user])
+// },[user])
 
    
 
 
-    return instance
+//     return instance
+// };
+
+// export default useAxiosSecure;
+
+
+import axios from "axios";
+import { useContext } from "react";
+import AuthContext from "../../Auth/AuthContext";
+
+const useAxiosSecure = () => {
+  const { user } = useContext(AuthContext);
+
+  const instance = axios.create({
+    baseURL: "http://localhost:5000",
+  });
+
+  // Attach token immediately
+  instance.interceptors.request.use((config) => {
+    if (user?.accessToken) {
+      config.headers.Authorization = `Bearer ${user.accessToken}`;
+    }
+    return config;
+  });
+
+  return instance;
 };
 
 export default useAxiosSecure;
