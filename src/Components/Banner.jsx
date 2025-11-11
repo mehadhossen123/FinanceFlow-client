@@ -39,6 +39,10 @@ const Banner = () => {
               </button>
             </div>
           </div>
+
+
+
+          
         </SwiperSlide>
 
         {/* slider -2 */}
