@@ -1,8 +1,12 @@
 import React from 'react';
 import Banner from '../Components/Banner';
 import Marquee from "react-fast-marquee";
+import useIncomeDetails from './Hooks/useIncomeDetails';
 
 const Home = () => {
+  const { totalIncome, totalExpense } = useIncomeDetails();
+  console.log("total expense =",totalExpense,"total income=",totalIncome);
+  
     return (
       <div>
         <div className="bg-blue-900 my-5">

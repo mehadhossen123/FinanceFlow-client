@@ -33,7 +33,7 @@ const MyTransaction = () => {
         setMyTransaction(res.data);
       } catch (error) {
         toast.error("Failed to fetch transactions");
-        console.error(error);
+        
       }
     };
 
