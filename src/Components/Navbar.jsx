@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Link, NavLink } from 'react-router';
 import { isActive } from '../Utils/utils';
 import AuthContext from '../Auth/AuthContext';
@@ -13,40 +13,72 @@ import { IoSettingsOutline } from 'react-icons/io5';
 import { GiTakeMyMoney } from 'react-icons/gi';
 
 const Navbar = () => {
+  const { user, userSignOut, loading, setLoading } = useContext(AuthContext);
+  const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
 
-  const { user, userSignOut ,loading,setLoading} = useContext(AuthContext);
-  
-    if(loading){
-      return <Loading></Loading>
+  useEffect(() => {
+    const html = document.querySelector("html");
+    html.setAttribute("data-theme", theme);
+    localStorage.setItem("theme", theme);
+  }, [theme]);
 
-    }
-  
+  //Implementation theme dark or light
+  const handleTheme = (checked) => {
+    setTheme(checked?"dark":"light")
+    // console.log(checked)
+  };
 
+  if (loading) {
+    return <Loading></Loading>;
+  }
 
-const links = (
-  <>
-
-  <li><NavLink to="/" className={isActive} > Home </NavLink> </li>
-  <li><NavLink to="/addTransaction" className={isActive} > AddTransaction </NavLink> </li>
-  <li><NavLink to="/reports" className={isActive} > Reports</NavLink> </li>
-  <li><NavLink to="/myTransaction" className={isActive} >My Transaction</NavLink> </li>
-
-{
-  !user&&(
+  const links = (
     <>
-    <li> <NavLink to="/auth/login"className={isActive}>Login  </NavLink> </li> 
+      <li>
+        <NavLink to="/" className={isActive}>
+          {" "}
+          Home{" "}
+        </NavLink>{" "}
+      </li>
+      <li>
+        <NavLink to="/addTransaction" className={isActive}>
+          {" "}
+          AddTransaction{" "}
+        </NavLink>{" "}
+      </li>
+      <li>
+        <NavLink to="/reports" className={isActive}>
+          {" "}
+          Reports
+        </NavLink>{" "}
+      </li>
+      <li>
+        <NavLink to="/myTransaction" className={isActive}>
+          My Transaction
+        </NavLink>{" "}
+      </li>
 
-<li> <NavLink to="/auth/register"className={isActive}> Register </NavLink></li>
+      {!user && (
+        <>
+          <li>
+            {" "}
+            <NavLink to="/auth/login" className={isActive}>
+              Login{" "}
+            </NavLink>{" "}
+          </li>
+
+          <li>
+            {" "}
+            <NavLink to="/auth/register" className={isActive}>
+              {" "}
+              Register{" "}
+            </NavLink>
+          </li>
+        </>
+      )}
     </>
-  )
-}
+  );
 
-
-  </>
-);
-
-
-  
   const handleLogout = () => {
     userSignOut()
       .then((res) => {
@@ -60,115 +92,117 @@ const links = (
       })
       .catch((error) => {
         toast.error(error.message);
-      }).finally(()=>setLoading(false))
+      })
+      .finally(() => setLoading(false));
   };
 
-
-
-
-
-    
-    return (
-      <div>
-        <div className="navbar bg-base-100 shadow-sm">
-          <div className="navbar-start">
-            <div className="dropdown">
-              <div
-                tabIndex={0}
-                role="button"
-                className="btn btn-ghost lg:hidden"
+  return (
+    <div>
+      <div className="navbar bg-base-100 shadow-sm">
+        <div className="navbar-start">
+          <div className="dropdown">
+            <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-5 w-5"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
               >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-5 w-5"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  {" "}
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M4 6h16M4 12h8m-8 6h16"
-                  />{" "}
-                </svg>
-              </div>
-              <ul
-                tabIndex="-1"
-                className="menu menu-sm dropdown-content  rounded-box z-1 mt-3 w-52 p-2 shadow"
-              >
-                {links}
-              </ul>
+                {" "}
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M4 6h16M4 12h8m-8 6h16"
+                />{" "}
+              </svg>
             </div>
-            {/* profile logo is here  */}
-            <div className='flex items-center'>
-              <img src={img} className="hidden lg:block  h-10 "  alt="" />
-              <h2 className='font-bold text-2xl lg:ml-3 text-center '>FinanceFlow</h2>
-            </div>
+            <ul
+              tabIndex="-1"
+              className="menu menu-sm dropdown-content  rounded-box z-1 mt-3 w-52 p-2 shadow"
+            >
+              {links}
+            </ul>
           </div>
-          <div className="navbar-center hidden lg:flex">
-            <ul className="menu menu-horizontal px-1">{links}</ul>
+          {/* profile logo is here  */}
+          <div className="flex items-center">
+            <img src={img} className="hidden lg:block  h-10 " alt="" />
+            <h2 className="font-bold text-2xl lg:ml-3 text-center ">
+              FinanceFlow
+            </h2>
           </div>
-          {/* profile is here  */}
+        </div>
+        <div className="navbar-center hidden lg:flex">
+          <ul className="menu menu-horizontal px-1">{links}</ul>
+        </div>
+        {/* profile is here  */}
 
-          <div className="navbar-end">
-            <div className="dropdown dropdown-end">
-              {/* 🔹 Profile Image Button */}
-              <div
-                tabIndex={0}
-                role="button"
-                className="btn btn-ghost btn-circle avatar"
-              >
-                <div className="w-10 rounded-full">
-                  <img
-                    alt="User Profile"
-                    referrerPolicy="no-referrer"
-                    src={
-                      user
-                        ? user?.photoURL
-                        : "https://cdn-icons-png.flaticon.com/512/149/149071.png"
-                    }
-                  />
-                </div>
+        <div className="navbar-end">
+          <div className="dropdown dropdown-end">
+            {/* 🔹 Profile Image Button */}
+            <div
+              tabIndex={0}
+              role="button"
+              className="btn btn-ghost btn-circle avatar"
+            >
+              <div className="w-10 rounded-full">
+                <img
+                  alt="User Profile"
+                  referrerPolicy="no-referrer"
+                  src={
+                    user
+                      ? user?.photoURL
+                      : "https://cdn-icons-png.flaticon.com/512/149/149071.png"
+                  }
+                />
               </div>
+            </div>
 
-              {/*  Dropdown Menu */}
-              <ul
-                tabIndex={0}
-                className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52"
-              >
-                <div className="bg-gray-200">
-                  {/* <p>{user?.email}</p>
+            {/*  Dropdown Menu */}
+            <ul
+              tabIndex={0}
+              className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52"
+            >
+              <div className="bg-gray-200">
+                {/* <p>{user?.email}</p>
                   <p>{user?.displayName}</p> */}
-                </div>
+              </div>
+              <li>
+                <Link to={"/auth/update"} className=" text-sm">
+                  Profile <CgProfile />
+                </Link>
+              </li>
+
+              {/* theme implementation here  */}
+              <input
+                onChange={(e) => handleTheme(e.target.checked)}
+                type="checkbox"
+                defaultChecked
+                className="toggle toggle-xs"
+              />
+
+              <li className="text-sm">
+                <a className="text-sm">
+                  Settings <IoSettingsOutline />
+                </a>
+              </li>
+              {user && (
                 <li>
-                  <Link to={"/auth/update"} className=" text-sm">
-                    Profile <CgProfile />
-                  </Link>
+                  <button
+                    onClick={handleLogout}
+                    className="text-red-500 text-sm"
+                  >
+                    Logout <MdLogout />
+                  </button>
                 </li>
-               
-                <li className="text-sm">
-                  <a className="text-sm">
-                    Settings <IoSettingsOutline />
-                  </a>
-                </li>
-                {user && (
-                  <li>
-                    <button
-                      onClick={handleLogout}
-                      className="text-red-500 text-sm"
-                    >
-                      Logout <MdLogout />
-                    </button>
-                  </li>
-                )}
-              </ul>
-            </div>
+              )}
+            </ul>
           </div>
         </div>
       </div>
-    );
+    </div>
+  );
 };
 
 export default Navbar;
