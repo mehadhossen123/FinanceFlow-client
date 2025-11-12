@@ -22,7 +22,7 @@ const Home = () => {
       setMessage("🎉 Great job! You're saving a healthy amount this month.");
     } else if (presentBalance < 0) {
       setMessage(
-        "⚠️ You're spending more than you earn — try cutting down some costs."
+        " ❗❗ You're spending more than you earn — try cutting down some costs."
       );
     }
   }, [totalIncome, totalExpense, presentBalance]);
@@ -31,38 +31,48 @@ const Home = () => {
     return (
       <>
         <section className="bg-emerald-500">
-          <h1 className="text-center text-2xl">Your Transaction Summary </h1>
+          <h1 className="text-center mt-5 text-2xl">Your Transaction Summary </h1>
           <div className="">
-          <p className={`text-center font-bold ${totalExpense > totalIncome ? "text-red-600" : "text-black"}`}>
-  {message}
-</p>
+            <p
+              className={`text-center font-bold ${
+                totalExpense > totalIncome ? "text-red-600" : "text-black"
+              }`}
+            >
+              {message}
+            </p>
 
-            <section className="flex justify-between mx-10 items-center my-5 pb-5">
-              <div className="bg-white flex flex-col rounded-sm shadow-2xl justify-center p-2 w-40 h-20 my-2">
-                <h3 className="text-center text-green-500 font-bold">
+            <section className="grid grid-cols-1 md:grid-cols-3 gap-6 place-items-center-safe mx-5 my-6 pb-5">
+              <div className="bg-white flex flex-col items-center justify-center rounded-xl shadow-2xl p-4 w-64 h-24">
+                <h3 className="text-center text-green-500 font-semibold text-lg">
                   Total Income
                 </h3>
-                <p className="text-center font-bold text-black text-xl ">
-                  {" "}
+                <p className="text-center font-bold text-black text-2xl">
                   +৳ {totalIncome}
                 </p>
               </div>
-              <div className="bg-white flex flex-col rounded-sm shadow-2xl justify-center p-2 w-40 h-20 my-2">
-                <h3 className="text-center font-black text-green-500 ">
+
+              <div className="bg-white flex flex-col items-center justify-center rounded-xl shadow-2xl p-4 w-64 h-24">
+                <h3 className="text-center text-green-500 font-semibold text-lg">
                   Balance
                 </h3>
-                <p className={`text-center  font-bold text-black  text-xl ${totalExpense> totalIncome ? "text-red-600" : "text-green-600 "}`}>
-                  {" "}
-                  +৳ {presentBalance}
+                <p
+                  className={`text-center font-bold text-2xl ${
+                    totalExpense > totalIncome
+                      ? "text-red-600"
+                      : "text-green-600"
+                  }`}
+                >
+                  {totalExpense > totalIncome ? "-৳" : "+৳"}{" "}
+                  {Math.abs(presentBalance)}
                 </p>
               </div>
-              <div className="bg-white flex flex-col rounded-sm shadow-2xl justify-center p-2 w-40 h-20 my-2">
-                <h3 className={`text-center  text-green-500 font-bold`}>
+
+              <div className="bg-white flex flex-col items-center justify-center rounded-xl shadow-2xl p-4 w-64 h-24">
+                <h3 className="text-center text-green-500 font-semibold text-lg">
                   Total Expense
                 </h3>
-                <p className="text-center font-bold  text-black text-xl ">
-                  {" "}
-                  +৳ {totalExpense}
+                <p className="text-center font-bold text-black text-2xl">
+                  -৳ {totalExpense}
                 </p>
               </div>
             </section>
