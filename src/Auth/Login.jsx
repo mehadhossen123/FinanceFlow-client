@@ -5,6 +5,7 @@ import AuthContext from './AuthContext';
 import Swal from 'sweetalert2';
 import { toast } from 'react-toastify';
 import Loading from '../Components/Loading';
+import { motion } from 'framer-motion';
 
 const Login = () => {
     const [show,setShow]=useState(true)
@@ -15,10 +16,10 @@ const Login = () => {
     const navigate=useNavigate()
 
 
-    //loading spinner 
-    // if(loading){
-    //     return <Loading></Loading>
-    // }
+   
+    if(loading){
+        return <Loading></Loading>
+    }
 
 
 
@@ -61,13 +62,22 @@ const handleUserSignIn=(e)=>{
     return (
       <div>
         <div className="min-h-screen bg-gradient-to-br from-teal-500 via-cyan-500 to-blue-600 flex items-center justify-center px-4 py-10">
-          <div className="bg-white/90 backdrop-blur-md shadow-2xl rounded-2xl p-8 w-full max-w-md border border-white/30">
+          <motion.div
+            initial={{ opacity: 0, x: -50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, ease: "easeOut" }}
+            className="bg-white/90 backdrop-blur-md shadow-2xl rounded-2xl p-8 w-full max-w-md border border-white/30"
+          >
             <h1 className="text-3xl font-extrabold text-center bg-gradient-to-r from-teal-600 via-cyan-500 to-blue-600 bg-clip-text text-transparent mb-8">
-              Welcome Back
+              Please Login
             </h1>
 
             {/* Login Form */}
-            <form onSubmit={handleUserSignIn} className="space-y-2">
+            <motion.form
+              onSubmit={handleUserSignIn}
+              className="space-y-2"
+             
+            >
               {/* Email */}
               <div>
                 <label className="block text-gray-600 text-sm font-medium mb-1">
@@ -124,10 +134,39 @@ const handleUserSignIn=(e)=>{
               {/* divider  */}
               <div className="divider divider-neutral">or</div>
               {/* google login button */}
-              <button onClick={handleGoogleLogin} className="btn w-full bg-white text-black border-[#e5e5e5]">
-  <svg aria-label="Google logo" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><g><path d="m0 0H512V512H0" fill="#fff"></path><path fill="#34a853" d="M153 292c30 82 118 95 171 60h62v48A192 192 0 0190 341"></path><path fill="#4285f4" d="m386 400a140 175 0 0053-179H260v74h102q-7 37-38 57"></path><path fill="#fbbc02" d="m90 341a208 200 0 010-171l63 49q-12 37 0 73"></path><path fill="#ea4335" d="m153 219c22-69 116-109 179-50l55-54c-78-75-230-72-297 55"></path></g></svg>
-  Login with Google
-</button>
+              <button
+                onClick={handleGoogleLogin}
+                className="btn w-full bg-white text-black border-[#e5e5e5]"
+              >
+                <svg
+                  aria-label="Google logo"
+                  width="16"
+                  height="16"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 512 512"
+                >
+                  <g>
+                    <path d="m0 0H512V512H0" fill="#fff"></path>
+                    <path
+                      fill="#34a853"
+                      d="M153 292c30 82 118 95 171 60h62v48A192 192 0 0190 341"
+                    ></path>
+                    <path
+                      fill="#4285f4"
+                      d="m386 400a140 175 0 0053-179H260v74h102q-7 37-38 57"
+                    ></path>
+                    <path
+                      fill="#fbbc02"
+                      d="m90 341a208 200 0 010-171l63 49q-12 37 0 73"
+                    ></path>
+                    <path
+                      fill="#ea4335"
+                      d="m153 219c22-69 116-109 179-50l55-54c-78-75-230-72-297 55"
+                    ></path>
+                  </g>
+                </svg>
+                Login with Google
+              </button>
 
               {/* Register Link */}
               <p className="text-center text-sm text-gray-600 mt-4">
@@ -139,8 +178,8 @@ const handleUserSignIn=(e)=>{
                   Register here
                 </Link>
               </p>
-            </form>
-          </div>
+            </motion.form>
+          </motion.div>
         </div>
       </div>
     );

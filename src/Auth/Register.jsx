@@ -1,15 +1,24 @@
 import React, { useContext, useState } from "react";
 import { IoIosEye, IoMdEyeOff } from "react-icons/io";
-import { Link, useNavigate } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 import AuthContext from "./AuthContext";
 import { toast } from "react-toastify";
 import Swal from "sweetalert2";
 import Loading from "../Components/Loading";
+import { motion } from "framer-motion";
 
 const Register = () => {
   const [show, SetShow] = useState(true);
-  const { userRegister, error, setError, setLoading, updateUser, setUser } =
-    useContext(AuthContext);
+ 
+  const {
+    userRegister,
+    error,
+    setError,
+    setLoading,
+    updateUser,
+    setUser,
+    googleLogin,
+  } = useContext(AuthContext);
   const navigate = useNavigate();
   // console.log(userRegister)
   //loading spinner
@@ -38,22 +47,30 @@ const Register = () => {
           photoURL: photo,
         }).then(() => {
           setUser(res.user);
-            Swal.fire({
-              position: "top-end",
-              icon: "success",
-              title: "Registration successful",
-              showConfirmButton: false,
-              timer: 1500,
-            });
+          Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: "Registration successful",
+            showConfirmButton: false,
+            timer: 1500,
+          });
           e.target.reset();
           navigate("/");
         });
-      
       })
       .catch((error) => {
         toast.error(error.code);
       })
       .finally(() => setLoading(false));
+  };
+
+  // handle google login
+  const handleGoogleLogin = () => {
+    googleLogin()
+      .then(() => {
+        navigate("/");
+      })
+      .catch(() => {});
   };
 
   return (
@@ -64,13 +81,24 @@ const Register = () => {
         </h1>
 
         {/* Registration Form */}
-        <form onSubmit={handleUserRegister} className="">
+        <motion.form
+          onSubmit={handleUserRegister}
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+        >
           {/* Full Name */}
           <div>
             <label className="block text-gray-600 text-sm font-medium mb-1">
               Full Name
             </label>
-            <input
+            <motion.input
+              whileHover={{ scale: 1.1, borderColor: "#A78BFA" }}
+              whileFocus={{
+                scale: 1.05,
+                borderColor: "#6366F1",
+                boxShadow: "0 0 10px rgba(99,102,241,0.6)",
+              }}
               type="text"
               name="name"
               placeholder="Enter your name"
@@ -82,9 +110,15 @@ const Register = () => {
             <label className="block text-gray-600 text-sm font-medium mb-1">
               Photo URL
             </label>
-            <input
+            <motion.input
               type="text"
               name="photo"
+              whileHover={{ scale: 1.1, borderColor: "#A78BFA" }}
+              whileFocus={{
+                scale: 1.05,
+                borderColor: "#6366F1",
+                boxShadow: "0 0 10px rgba(99,102,241,0.6)",
+              }}
               placeholder="Enter your photo url"
               className="w-full border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 rounded-lg px-4 py-2 outline-none transition duration-200"
               required
@@ -96,9 +130,15 @@ const Register = () => {
             <label className="block text-gray-600 text-sm font-medium mb-1">
               Email Address
             </label>
-            <input
+            <motion.input
               type="email"
               name="email"
+              whileHover={{ scale: 1.1, borderColor: "#A78BFA" }}
+              whileFocus={{
+                scale: 1.05,
+                borderColor: "#6366F1",
+                boxShadow: "0 0 10px rgba(99,102,241,0.6)",
+              }}
               placeholder="you@example.com"
               className="w-full border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 rounded-lg px-4 py-2 outline-none transition duration-200"
               required
@@ -111,7 +151,13 @@ const Register = () => {
               Password
             </label>
             <div className="relative">
-              <input
+              <motion.input
+                whileHover={{ scale: 1.1, borderColor: "#A78BFA" }}
+                whileFocus={{
+                  scale: 1.05,
+                  borderColor: "#6366F1",
+                  boxShadow: "0 0 10px rgba(99,102,241,0.6)",
+                }}
                 name="password"
                 type={`${show ? "password" : "text"}`}
                 placeholder="••••••••"
@@ -153,11 +199,52 @@ const Register = () => {
           </div>
 
           {/* Register Button */}
-          <button
+          <motion.button
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.95 }}
+            transition={{ type: "spring", stiffness: 300, damping: 20 }}
             type="submit"
             className="w-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-semibold rounded-lg py-2 mt-2 hover:from-indigo-700 hover:to-purple-700 transition duration-300 shadow-md"
           >
             Register
+          </motion.button>
+        
+        
+          {/* divider  */}
+          <div className="divider divider-neutral">or</div>
+          {/* google login button */}
+          <button
+            onClick={handleGoogleLogin}
+            className="btn w-full bg-white text-black border-[#e5e5e5]"
+          >
+            <svg
+              aria-label="Google logo"
+              width="16"
+              height="16"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 512 512"
+            >
+              <g>
+                <path d="m0 0H512V512H0" fill="#fff"></path>
+                <path
+                  fill="#34a853"
+                  d="M153 292c30 82 118 95 171 60h62v48A192 192 0 0190 341"
+                ></path>
+                <path
+                  fill="#4285f4"
+                  d="m386 400a140 175 0 0053-179H260v74h102q-7 37-38 57"
+                ></path>
+                <path
+                  fill="#fbbc02"
+                  d="m90 341a208 200 0 010-171l63 49q-12 37 0 73"
+                ></path>
+                <path
+                  fill="#ea4335"
+                  d="m153 219c22-69 116-109 179-50l55-54c-78-75-230-72-297 55"
+                ></path>
+              </g>
+            </svg>
+            Login with Google
           </button>
 
           {/* Login Link */}
@@ -170,7 +257,7 @@ const Register = () => {
               Login here
             </Link>
           </p>
-        </form>
+        </motion.form>
       </div>
     </div>
   );
