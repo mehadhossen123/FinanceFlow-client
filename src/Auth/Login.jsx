@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { IoIosEye, IoMdEyeOff } from 'react-icons/io';
 import { Link, useLocation, useNavigate } from 'react-router';
 import AuthContext from './AuthContext';
@@ -14,6 +14,10 @@ const Login = () => {
     const from = location.state?.from ;
      console.log(from)
     const navigate=useNavigate()
+    //Implementation dynamic route 
+    useEffect(() => {
+        document.title = "Login";
+      }, []);
 
 
    

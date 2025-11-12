@@ -8,9 +8,15 @@ import Loading from './Loading';
 import { MdLogout } from 'react-icons/md';
 import { CgProfile } from 'react-icons/cg';
 import img from '../assets/dd.jpg'
+import { RiHome4Line } from "react-icons/ri";
+import { GoReport } from "react-icons/go";
 
 import { IoSettingsOutline } from 'react-icons/io5';
 import { GiTakeMyMoney } from 'react-icons/gi';
+import { IoMdPersonAdd } from 'react-icons/io';
+import { CiLogin } from "react-icons/ci";
+import { FaRegRegistered } from "react-icons/fa";
+
 
 const Navbar = () => {
   const { user, userSignOut, loading, setLoading } = useContext(AuthContext);
@@ -37,24 +43,24 @@ const Navbar = () => {
       <li>
         <NavLink to="/" className={isActive}>
           {" "}
-          Home{" "}
+          <RiHome4Line /> Home{" "}
         </NavLink>{" "}
       </li>
       <li>
         <NavLink to="/addTransaction" className={isActive}>
           {" "}
-          AddTransaction{" "}
+          <IoMdPersonAdd /> AddTransaction{" "}
         </NavLink>{" "}
       </li>
       <li>
         <NavLink to="/reports" className={isActive}>
           {" "}
-          Reports
+          <GoReport /> Reports
         </NavLink>{" "}
       </li>
       <li>
         <NavLink to="/myTransaction" className={isActive}>
-          My Transaction
+          <GiTakeMyMoney /> My Transaction
         </NavLink>{" "}
       </li>
 
@@ -63,7 +69,7 @@ const Navbar = () => {
           <li>
             {" "}
             <NavLink to="/auth/login" className={isActive}>
-              Login{" "}
+              <CiLogin /> Login{" "}
             </NavLink>{" "}
           </li>
 
@@ -71,7 +77,7 @@ const Navbar = () => {
             {" "}
             <NavLink to="/auth/register" className={isActive}>
               {" "}
-              Register{" "}
+              <FaRegRegistered /> Register{" "}
             </NavLink>
           </li>
         </>

@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { IoIosEye, IoMdEyeOff } from "react-icons/io";
 import { Link, useLocation, useNavigate } from "react-router";
 import AuthContext from "./AuthContext";
@@ -10,7 +10,10 @@ import { motion } from "framer-motion";
 const Register = () => {
   const [show, SetShow] = useState(true);
   const [message,setMessage]=useState("")
- 
+  //implementation dynamic route 
+ useEffect(() => {
+     document.title = "Register ";
+   }, []);
   const {
     userRegister,
     error,

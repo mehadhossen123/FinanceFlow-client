@@ -5,6 +5,12 @@ import useIncomeDetails from './Hooks/useIncomeDetails';
 import FinancialSections from '../Components/FinancialSections';
 
 const Home = () => {
+
+//implementation dynamic route s
+  useEffect(() => {
+      document.title = "AddTransaction";
+    }, []);
+
   const { totalIncome, totalExpense } = useIncomeDetails();
   const [message,setMessage]=useState("")
   // console.log("total expense =",totalExpense,"total income=",totalIncome);
@@ -31,7 +37,7 @@ const Home = () => {
   
     return (
       <>
-        <section className="bg-emerald-500">
+        <section className="bg-emerald-500 md:mt-10">
           <h1 className="text-center mt-5 text-2xl">Your Transaction Summary </h1>
           <div className="">
             <p
