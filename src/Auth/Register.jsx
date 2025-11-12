@@ -8,7 +8,7 @@ import Loading from "../Components/Loading";
 import { motion } from "framer-motion";
 
 const Register = () => {
-  const [show, SetShow] = useState(true);
+  const [show, setShow] = useState(true);
   const [message,setMessage]=useState("")
   //implementation dynamic route 
  useEffect(() => {
@@ -177,7 +177,7 @@ const Register = () => {
                 required
               />
               <p
-                onClick={() => SetShow(!show)}
+                onClick={() => setShow(!show)}
                 className="absolute right-3 top-1/3 cursor-pointer"
               >
                 {" "}
