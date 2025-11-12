@@ -16,13 +16,10 @@ import Loading from "./Loading";
 import { IoMdArrowBack } from "react-icons/io";
 
 const Details = () => {
-
-const {loading}=useContext(AuthContext)
-
-
+  const { loading } = useContext(AuthContext);
 
   const data = useLoaderData();
-
+  console.log(data)
 
   if (loading) {
     return <Loading></Loading>;

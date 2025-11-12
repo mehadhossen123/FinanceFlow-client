@@ -52,7 +52,7 @@ import Details from "../Components/Details";
            </PrivateRoutes>
          ),
          loader: ({ params }) =>
-           fetch(`https://finance-flow-phi-inky.vercel.app/${params.id}`),
+           fetch(`https://finance-flow-phi-inky.vercel.app/add/${params.id}`),
        },
      ],
    },

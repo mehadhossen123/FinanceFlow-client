@@ -10,23 +10,22 @@ import useAxios from "./Hooks/useAxios";
 
 
 const MyTransaction = () => {
-  const { user } = useContext(AuthContext);
-  const [myTransaction, setMyTransaction] = useState([])
-  const [transaction,setTransaction]=useState([])
+  const { user  } = useContext(AuthContext);
+  const [myTransaction, setMyTransaction] = useState([]);
+  const [transaction, setTransaction] = useState([]);
+  const [localLoading ,setLocalLoading]=useState(true)
   // console.log(transaction);
-  
 
   const modalsRef = useRef();
 
   const useSecure = useAxios();
 
-  // if(loading){
-  //   return<Loading></Loading>
-  // }
-
   // Fetch my transactions from the server
   useEffect(() => {
+  
+
     if (!user?.email) return;
+      setLocalLoading(true)
 
     const fetchData = async () => {
       try {
@@ -34,12 +33,20 @@ const MyTransaction = () => {
         setMyTransaction(res.data);
       } catch (error) {
         toast.error("Failed to fetch transactions");
-        
+      }
+      finally{
+        setLocalLoading(false)
       }
     };
+   
 
     fetchData();
   }, [user?.email]);
+
+
+  if(localLoading){
+    return<Loading></Loading>
+  }
 
   //  Handle delete transaction
   const handleDeleteTransaction = async (id) => {
@@ -56,12 +63,12 @@ const MyTransaction = () => {
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
-          
-          const res = await useSecure.delete(`/add/delete/${id}?email=${user?.email}`);
+          const res = await useSecure.delete(
+            `/add/delete/${id}?email=${user?.email}`
+          );
 
-          
           if (res.data?.deletedCount > 0) {
-            setMyTransaction(myTransaction.filter(item => item._id !== id))
+            setMyTransaction(myTransaction.filter((item) => item._id !== id));
 
             Swal.fire({
               title: "Deleted!",
@@ -89,74 +96,67 @@ const MyTransaction = () => {
     });
   };
 
-  
-
   //handle update transaction
-  const handleUpdate = async(e) => {
-    e.preventDefault()
+  const handleUpdate = async (e) => {
+    e.preventDefault();
     // console.log("hello i am from a handle delete")
-    const type=e.target.type.value;
-    const category=e.target.category.value;
-    const amount=e.target.amount.value;
-    const description=e.target.description.value;
-    const date=e.target.date.value;
-    console.log(type,category,amount,description,date);
+    const type = e.target.type.value;
+    const category = e.target.category.value;
+    const amount = e.target.amount.value;
+    const description = e.target.description.value;
+    const date = e.target.date.value;
+    console.log(type, category, amount, description, date);
 
-    const updateData={
-      type,category,amount,description,date
-    }
+    const updateData = {
+      type,
+      category,
+      amount,
+      description,
+      date,
+    };
 
-    try{
-      const res=await useSecure.patch(`/add/update/${transaction._id}?email=${user?.email}`,updateData)
-        if (res.data?.modifiedCount > 0){
-            // const updatedTransactions = myTransaction.map((tx) =>
-            //   tx._id === transaction._id ? { ...tx, ...updateData } : tx
-            // );
-            const updatedTransactions=myTransaction.map(tx=>{
-              if(tx._id===transaction._id){
-                const updatedTx={...tx,...updateData}
-                return updatedTx
-              }
-              else{
-                return tx
-              }
-            })
-            setMyTransaction(updatedTransactions)
-        }
-        Swal.fire({
-          icon: "success",
-          title: "Updated!",
-          text: "Transaction updated successfully",
-          timer: 1500,
-          showConfirmButton: false,
+    try {
+      const res = await useSecure.patch(
+        `/add/update/${transaction._id}?email=${user?.email}`,
+        updateData
+      );
+      if (res.data?.modifiedCount > 0) {
+        // const updatedTransactions = myTransaction.map((tx) =>
+        //   tx._id === transaction._id ? { ...tx, ...updateData } : tx
+        // );
+        const updatedTransactions = myTransaction.map((tx) => {
+          if (tx._id === transaction._id) {
+            const updatedTx = { ...tx, ...updateData };
+            return updatedTx;
+          } else {
+            return tx;
+          }
         });
-     
-     modalsRef.current.close()
-      
+        setMyTransaction(updatedTransactions);
+      }
+      Swal.fire({
+        icon: "success",
+        title: "Updated!",
+        text: "Transaction updated successfully",
+        timer: 1500,
+        showConfirmButton: false,
+      });
 
-    }
-    catch(e){
-      console.log(e)
+      modalsRef.current.close();
+    } catch (e) {
+      console.log(e);
       Swal.fire({
         icon: "error",
         title: "Oops...",
         text: "Something went wrong while updating!",
       });
-
     }
-    
-
-
-    
-   
   };
 
-  const openModals=(tax)=>{
-    setTransaction(tax)
-     modalsRef.current.showModal();
-
-
-  }
+  const openModals = (tax) => {
+    setTransaction(tax);
+    modalsRef.current.showModal();
+  };
 
   return (
     <>
@@ -326,7 +326,7 @@ const MyTransaction = () => {
               />
             </div>
             <button
-             type="submit"
+              type="submit"
               className="flex text-green-800 justify-center bg-amber-400 rounded-2xl mt-7 py-2 px-6 font-bold hover:bg-amber-200 cursor-pointer "
             >
               Update
