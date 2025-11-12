@@ -12,7 +12,7 @@ import MyTransaction from "../Pages/MyTransaction";
 import Reports from "../Pages/Reports";
 import Error from "../Components/Error";
 import Details from "../Components/Details";
-import useAxiosSecure from "../Pages/Hooks/useAxiosSecure";
+
 
  const route = createBrowserRouter([
    {
@@ -52,7 +52,7 @@ import useAxiosSecure from "../Pages/Hooks/useAxiosSecure";
            </PrivateRoutes>
          ),
          loader: ({ params }) =>
-           fetch(`http://localhost:5000/add/${params.id}`),
+           fetch(`https://finance-flow-phi-inky.vercel.app/${params.id}`),
        },
      ],
    },

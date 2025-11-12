@@ -43,7 +43,7 @@ const useAxiosSecure = () => {
   const { user } = useContext(AuthContext);
 
   const instance = axios.create({
-    baseURL: "http://localhost:5000",
+    baseURL: "https://finance-flow-phi-inky.vercel.app",
   });
 
   // Attach token immediately
