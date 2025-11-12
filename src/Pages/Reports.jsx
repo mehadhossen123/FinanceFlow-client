@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import AuthContext from "../Auth/AuthContext";
-import useAxiosSecure from "./Hooks/useAxiosSecure";
+
 import { toast } from "react-toastify";
 
 
@@ -19,12 +19,13 @@ import {
 } from "recharts";
 
 import Loading from "../Components/Loading";
+import useAxios from "./Hooks/useAxios";
 
 const Reports = () => {
   const { user } = useContext(AuthContext);
   const [myTransaction, setMyTransaction] = useState([]);
   const [loading, setLoading] = useState(true); 
-  const useSecure = useAxiosSecure();
+  const useSecure = useAxios();
 
   // Dynamic route title
   useEffect(() => {

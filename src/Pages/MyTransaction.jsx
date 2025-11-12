@@ -2,10 +2,11 @@ import React, { useContext, useEffect, useRef, useState } from "react";
 
 import AuthContext from "../Auth/AuthContext";
 import { toast } from "react-toastify";
-import useAxiosSecure from "./Hooks/useAxiosSecure";
+
 import Loading from "../Components/Loading";
 import { Link } from "react-router";
 import Swal from "sweetalert2";
+import useAxios from "./Hooks/useAxios";
 
 
 const MyTransaction = () => {
@@ -17,7 +18,7 @@ const MyTransaction = () => {
 
   const modalsRef = useRef();
 
-  const useSecure = useAxiosSecure();
+  const useSecure = useAxios();
 
   // if(loading){
   //   return<Loading></Loading>

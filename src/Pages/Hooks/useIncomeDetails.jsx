@@ -1,16 +1,17 @@
 import { useContext, useEffect, useState } from "react";
 import AuthContext from "../../Auth/AuthContext";
-import useAxiosSecure from "./useAxiosSecure";
+
 import { toast } from "react-toastify";
 
 import React from 'react';
+import useAxios from "./useAxios";
 
 const useIncomeDetails = () => {
 
 
      const { user } = useContext(AuthContext);
      const [myTransaction, setMyTransaction] = useState([]);
-     const useSecure = useAxiosSecure();
+     const useSecure = useAxios();
 
      // Fetch my transactions from the server
      useEffect(() => {

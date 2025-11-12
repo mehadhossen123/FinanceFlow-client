@@ -2,11 +2,14 @@ import React, { useContext, useEffect } from "react";
 import AuthContext from "../Auth/AuthContext";
 
 import Swal from "sweetalert2";
-import useAxiosSecure from "./Hooks/useAxiosSecure";
+import useAxios from "./Hooks/useAxios";
+
+
+
 
 const AddTransaction = () => {
   const { user } = useContext(AuthContext);
-  const useAxios = useAxiosSecure();
+ const useSecure=useAxios()
 
   useEffect(() => {
     document.title = "AddTransaction";
@@ -34,7 +37,7 @@ const AddTransaction = () => {
     };
 
     try {
-      const res = await useAxios.post("/add", newTransaction);
+      const res = await useSecure.post("/add", newTransaction);
       // console.log(res.data);
 
       Swal.fire({
