@@ -9,6 +9,7 @@ import { motion } from "framer-motion";
 
 const Register = () => {
   const [show, SetShow] = useState(true);
+  const [message,setMessage]=useState("")
  
   const {
     userRegister,
@@ -32,6 +33,13 @@ const Register = () => {
     const password = e.target.password.value;
     const cPassword = e.target.c_password.value;
     const photo = e.target.photo.value;
+      const passwordRegex = /^(?=.*[A-Z])(?=.*[a-z]).{6,}$/;
+      if(!passwordRegex.test(password)){
+        return setMessage(
+          "❌ Password must contain at least one uppercase, one lowercase letter, and be at least 6 characters long."
+        );
+
+      }
 
     if (password !== cPassword) {
       setError("password doesn't match");
@@ -150,6 +158,7 @@ const Register = () => {
             <label className="block text-gray-600 text-sm font-medium mb-1">
               Password
             </label>
+            {message}
             <div className="relative">
               <motion.input
                 whileHover={{ scale: 1.1, borderColor: "#A78BFA" }}

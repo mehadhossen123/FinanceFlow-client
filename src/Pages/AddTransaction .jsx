@@ -66,15 +66,25 @@ const AddTransaction = () => {
           <h2 className="text-3xl font-extrabold text-center text-gray-800 mb-5">
             Add Transaction
           </h2>
-          <form onSubmit={handleAddTransaction} className="space-y-2">
+          <form
+            onSubmit={handleAddTransaction}
+            className="max-w-md mx-auto bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg space-y-5 border border-gray-200 dark:border-gray-700 transition"
+          >
+            <h2 className="text-2xl font-bold text-center text-gray-800 dark:text-gray-100 mb-2">
+              Add New Transaction
+            </h2>
+            <p className="text-center text-sm text-gray-500 dark:text-gray-400 mb-4">
+              Record your income or expenses easily
+            </p>
+
             {/* Type */}
             <div>
-              <label className="block mb-1 font-medium text-gray-700">
+              <label className="block mb-1 font-medium text-gray-700 dark:text-gray-300">
                 Type
               </label>
               <select
                 name="type"
-                className="w-11/12 border border-gray-300 px-3 py-2 rounded-lg focus:ring-2 focus:ring-indigo-300 focus:border-indigo-500 transition"
+                className="w-full border border-gray-300 dark:border-gray-600 px-3 py-2 rounded-lg focus:ring-2 focus:ring-indigo-400 focus:border-indigo-500 dark:bg-gray-700 dark:text-white transition"
                 required
               >
                 <option value="Income">Income</option>
@@ -84,12 +94,12 @@ const AddTransaction = () => {
 
             {/* Category */}
             <div>
-              <label className="block mb-1 font-medium text-gray-700">
+              <label className="block mb-1 font-medium text-gray-700 dark:text-gray-300">
                 Category
               </label>
               <select
                 name="category"
-                className="w-11/12 border border-gray-300 px-3 py-2 rounded-lg focus:ring-2 focus:ring-indigo-300 focus:border-indigo-500 transition"
+                className="w-full border border-gray-300 dark:border-gray-600 px-3 py-2 rounded-lg focus:ring-2 focus:ring-indigo-400 focus:border-indigo-500 dark:bg-gray-700 dark:text-white transition"
                 required
               >
                 <option value="">Select Category</option>
@@ -110,80 +120,85 @@ const AddTransaction = () => {
 
             {/* Amount */}
             <div>
-              <label className="block mb-1 font-medium text-gray-700">
+              <label className="block mb-1 font-medium text-gray-700 dark:text-gray-300">
                 Amount
               </label>
-              <input
+              <motion.input
+                whileHover={{ scale: 1.1, borderColor: "#A78BFA" }}
+                whileFocus={{ scale: 1.05, borderColor: "#A78BFA" }}
                 type="number"
                 name="amount"
                 placeholder="Enter amount"
-                className="w-11/12 border border-gray-300 px-3 py-2 rounded-lg focus:ring-2 focus:ring-indigo-300 focus:border-indigo-500 transition"
+                className="w-full border border-gray-300 dark:border-gray-600 px-3 py-2 rounded-lg focus:ring-2 focus:ring-indigo-400 focus:border-indigo-500 dark:bg-gray-700 dark:text-white transition"
                 required
               />
             </div>
 
             {/* Description */}
             <div>
-              <label className="block mb-1 font-medium text-gray-700">
+              <label className="block mb-1 font-medium text-gray-700 dark:text-gray-300">
                 Description
               </label>
-              <textarea
+              <motion.textarea
+                whileHover={{ scale: 1.1, borderColor: "#A78BFA" }}
+                whileFocus={{ scale: 1.05, borderColor: "#A78BFA" }}
                 name="description"
                 placeholder="Enter description"
-                className="w-11/12 border border-gray-300 px-3 py-2 rounded-lg focus:ring-2 focus:ring-indigo-300 focus:border-indigo-500 transition resize-none h-20"
+                className="w-full border border-gray-300 dark:border-gray-600 px-3 py-2 rounded-lg focus:ring-2 focus:ring-indigo-400 focus:border-indigo-500 dark:bg-gray-700 dark:text-white transition resize-none h-20"
               />
             </div>
 
             {/* Date */}
             <div>
-              <label className="block mb-1 font-medium text-gray-700">
+              <label className="block mb-1 font-medium text-gray-700 dark:text-gray-300">
                 Date
               </label>
-              <input
+              <motion.input
+                whileHover={{ scale: 1.1, borderColor: "#A78BFA" }}
+                whileFocus={{ scale: 1.05, borderColor: "#A78BFA" }}
                 type="date"
                 name="date"
-                className="w-11/12 border border-gray-300 px-3 py-2 rounded-lg focus:ring-2 focus:ring-indigo-300 focus:border-indigo-500 transition"
+                className="w-full border border-gray-300 dark:border-gray-600 px-3 py-2 rounded-lg focus:ring-2 focus:ring-indigo-400 focus:border-indigo-500 dark:bg-gray-700 dark:text-white transition"
                 required
               />
             </div>
 
             {/* User Email */}
             <div>
-              <label className="block mb-1 font-medium text-gray-700">
+              <label className="block mb-1 font-medium text-gray-700 dark:text-gray-300">
                 User Email
               </label>
               <input
                 defaultValue={user?.email}
                 type="email"
                 readOnly
-                className="w-11/12 border border-gray-300 px-3 py-2 rounded-lg bg-gray-100 cursor-not-allowed"
+                className="w-full border border-gray-300 dark:border-gray-600 px-3 py-2 rounded-lg bg-gray-100 dark:bg-gray-700 dark:text-gray-300 cursor-not-allowed"
               />
             </div>
 
             {/* User Name */}
             <div>
-              <label className="block mb-1 font-medium text-gray-700">
+              <label className="block mb-1 font-medium text-gray-700 dark:text-gray-300">
                 User Name
               </label>
               <input
                 defaultValue={user?.displayName}
                 type="text"
                 readOnly
-                className="w-11/12 border border-gray-300 px-3 py-2 rounded-lg bg-gray-100 cursor-not-allowed"
+                className="w-full border border-gray-300 dark:border-gray-600 px-3 py-2 rounded-lg bg-gray-100 dark:bg-gray-700 dark:text-gray-300 cursor-not-allowed"
               />
             </div>
 
             {/* Add Transaction Button */}
             <button
               type="submit"
-              className="w-11/12 bg-gradient-to-r cursor-pointer from-indigo-600 to-purple-600 text-white py-2 rounded-lg font-semibold hover:from-indigo-700 hover:to-purple-700 transition shadow-md"
+              className="w-full bg-gradient-to-r from-indigo-600 cursor-pointer to-purple-600 text-white py-2.5 rounded-lg font-semibold hover:from-indigo-700 hover:to-purple-700 transition shadow-md"
             >
-              Add Transaction
+              + Add Transaction
             </button>
           </form>
         </div>
       </div>
-     
     </div>
   );
 };

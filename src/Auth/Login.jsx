@@ -73,17 +73,15 @@ const handleUserSignIn=(e)=>{
             </h1>
 
             {/* Login Form */}
-            <motion.form
-              onSubmit={handleUserSignIn}
-              className="space-y-2"
-             
-            >
+            <motion.form onSubmit={handleUserSignIn} className="space-y-2">
               {/* Email */}
               <div>
                 <label className="block text-gray-600 text-sm font-medium mb-1">
                   Email Address
                 </label>
-                <input
+                <motion.input
+                  whileHover={{ scale: 1.1, borderColor: "#A78BFA" }}
+                  whileFocus={{ scale: 1.05, borderColor: "#A78BFA" }}
                   type="email"
                   name="email"
                   placeholder="you@example.com"
@@ -98,7 +96,9 @@ const handleUserSignIn=(e)=>{
                   Password
                 </label>
                 <div className="relative">
-                  <input
+                  <motion.input
+                    whileHover={{ scale: 1.1, borderColor: "#A78BFA" }}
+                    whileFocus={{ scale: 1.05, borderColor: "#A78BFA" }}
                     type={show ? "password" : "text"}
                     name="password"
                     placeholder="••••••••"

@@ -129,7 +129,7 @@ const Reports = () => {
     <>
       {/* Pie Charts for Expense & Income  */}
       <div className="p-6 bg-gray-100 min-h-screen">
-        <h2 className="text-3xl font-bold mb-6 text-center">
+        <h2 className="text-3xl font-bold mb-6 text-black text-center">
           📈 Financial Report Overview
         </h2>
 
