@@ -180,7 +180,7 @@ const AddTransaction = () => {
           </form>
         </div>
       </div>
-      on
+     
     </div>
   );
 };

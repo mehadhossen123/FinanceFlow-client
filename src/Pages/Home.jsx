@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Banner from '../Components/Banner';
 import Marquee from "react-fast-marquee";
 import useIncomeDetails from './Hooks/useIncomeDetails';
+import FinancialSections from '../Components/FinancialSections';
 
 const Home = () => {
   const { totalIncome, totalExpense } = useIncomeDetails();
@@ -19,7 +20,7 @@ const Home = () => {
         "😐 You broke even this month — try saving a bit more next time."
       );
     } else if (presentBalance > 0) {
-      setMessage("🎉 Great job! You're saving a healthy amount this month.");
+      setMessage("🎉 Great job! You're saving a healthy amount this year.");
     } else if (presentBalance < 0) {
       setMessage(
         " ❗❗ You're spending more than you earn — try cutting down some costs."
@@ -107,6 +108,9 @@ const Home = () => {
             <Banner></Banner>
           </div>
         </div>
+
+        {/* static planning  */}
+        <FinancialSections></FinancialSections>
       </>
     );
 };
