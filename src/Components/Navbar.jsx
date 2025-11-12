@@ -170,7 +170,7 @@ const Navbar = () => {
               </div>
               <li>
                 <Link to={"/auth/update"} className=" text-sm">
-                  Profile <CgProfile />
+                  <CgProfile /> Profile
                 </Link>
               </li>
 
@@ -184,7 +184,7 @@ const Navbar = () => {
 
               <li className="text-sm">
                 <a className="text-sm">
-                  Settings <IoSettingsOutline />
+                  <IoSettingsOutline /> Settings
                 </a>
               </li>
               {user && (
@@ -193,7 +193,7 @@ const Navbar = () => {
                     onClick={handleLogout}
                     className="text-red-500 text-sm"
                   >
-                    Logout <MdLogout />
+                    <MdLogout /> Logout
                   </button>
                 </li>
               )}
