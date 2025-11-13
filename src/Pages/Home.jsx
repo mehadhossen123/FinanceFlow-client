@@ -1,10 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Banner from '../Components/Banner';
 import Marquee from "react-fast-marquee";
 import useIncomeDetails from './Hooks/useIncomeDetails';
 import FinancialSections from '../Components/FinancialSections';
+import bg from "../assets/bg2.svg";
+import AuthContext from '../Auth/AuthContext';
 
 const Home = () => {
+  const {user}=useContext(AuthContext)
 
 //implementation dynamic route s
   useEffect(() => {
@@ -33,19 +36,35 @@ const Home = () => {
       );
     }
   }, [totalIncome, totalExpense, presentBalance]);
+  const name=user?.displayName.slice(0,5)
+ 
+  // console.log(capitalName);
+  
+  
+   
+
 
   
     return (
       <>
-        <section className="bg-emerald-500 md:mt-10">
-          <h1 className="text-center mt-5 text-2xl">Your Transaction Summary </h1>
+        <section
+          style={{ backgroundImage: `url(${bg})` }}
+          className="0 md:mt-10"
+        >
+          <h1 className="text-center text-pink-500 mt-5 text-2xl">
+            Your Transaction Summary{" "}
+          </h1>
           <div className="">
             <p
               className={`text-center font-bold ${
-                totalExpense > totalIncome ? "text-red-600" : "text-black"
+                totalExpense > totalIncome ? "text-red-600" : "text-white"
               }`}
             >
-              {message}
+              <div className="flex justify-center">
+                {" "}
+                <p className="text-2xl text-pink-500"> {name} :</p>{" "}
+                <p className='text-2xl font-bold'>{message}</p>
+              </div>
             </p>
 
             <section className="grid grid-cols-1 md:grid-cols-3 gap-6 place-items-center-safe mx-5 my-6 pb-5">

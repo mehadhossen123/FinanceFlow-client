@@ -1,11 +1,13 @@
 import React, { useContext, useEffect, useState } from "react";
 import { IoIosEye, IoMdEyeOff } from "react-icons/io";
-import { Link, useLocation, useNavigate } from "react-router";
+import { Link,  useNavigate } from "react-router";
 import AuthContext from "./AuthContext";
 import { toast } from "react-toastify";
 import Swal from "sweetalert2";
 import Loading from "../Components/Loading";
 import { motion } from "framer-motion";
+import bg from '../assets/bg2.svg'
+import img from "../assets/refund.png";
 
 const Register = () => {
   const [show, setShow] = useState(true);
@@ -36,6 +38,7 @@ const Register = () => {
     const password = e.target.password.value;
     const cPassword = e.target.c_password.value;
     const photo = e.target.photo.value;
+    //check password validation 
       const passwordRegex = /^(?=.*[A-Z])(?=.*[a-z]).{6,}$/;
       if(!passwordRegex.test(password)){
         return setMessage(
@@ -43,16 +46,17 @@ const Register = () => {
         );
 
       }
+      //check  password 
 
     if (password !== cPassword) {
       setError("password doesn't match");
       return;
     }
-    // console.log(name,email,password,cPassword);
+   
 
     userRegister(email, password)
       .then((res) => {
-        // console.log(res.user)
+       
         updateUser({
           displayName: name,
           photoURL: photo,
@@ -85,11 +89,17 @@ const Register = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-500 via-purple-500 to-pink-500 flex items-center justify-center px-4 py-10">
+    <div
+      style={{ backgroundImage: `url(${bg})` }}
+      className="min-h-screen  flex items-center justify-center px-4 py-10"
+    >
       <div className="bg-white/90 backdrop-blur-lg shadow-2xl rounded-2xl p-8 w-full max-w-md border border-white/20">
-        <h1 className="text-2xl font-extrabold text-center bg-gradient-to-r from-indigo-600 via-purple-500 to-pink-500 bg-clip-text text-transparent mb-6">
-          Create Your Account
-        </h1>
+        <div className="flex justify-center items-center ">
+          <img src={img} alt="" className="h-15 mr-5 mb-1" />
+          <h1 className="text-2xl font-extrabold text-center bg-gradient-to-r from-indigo-600 via-purple-500 to-pink-500 bg-clip-text text-transparent mb-6">
+            Create Your Account
+          </h1>
+        </div>
 
         {/* Registration Form */}
         <motion.form
@@ -216,12 +226,11 @@ const Register = () => {
             whileTap={{ scale: 0.95 }}
             transition={{ type: "spring", stiffness: 300, damping: 20 }}
             type="submit"
-            className="w-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-semibold rounded-lg py-2 mt-2 hover:from-indigo-700 hover:to-purple-700 transition duration-300 shadow-md"
+            className="w-full   bg-gradient-to-r from-teal-600 to-cyan-600 text-white font-semibold rounded-lg py-2 mt-2 hover:from-indigo-700 hover:to-purple-700 transition duration-300 shadow-md"
           >
             Register
           </motion.button>
-        
-        
+
           {/* divider  */}
           <div className="divider divider-neutral">or</div>
           {/* google login button */}

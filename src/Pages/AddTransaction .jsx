@@ -3,6 +3,8 @@ import AuthContext from "../Auth/AuthContext";
 import Swal from "sweetalert2";
 import useAxios from "./Hooks/useAxios";
 import { motion } from "framer-motion";
+import bg from "../assets/bg2.svg";
+import img from "../assets/refund.png";
 
 const AddTransaction = () => {
   const { user } = useContext(AuthContext);
@@ -56,11 +58,21 @@ const AddTransaction = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-500 via-purple-500 to-pink-500 flex items-center justify-center px-4 py-8">
+    <div
+      style={{ backgroundImage: `url(${bg})` }}
+      className="min-h-screen flex items-center justify-center px-4 py-8"
+    >
       <div className="max-w-md w-full p-5 bg-white/90 backdrop-blur-md rounded-2xl shadow-2xl border border-white/20">
-        <h2 className="text-3xl font-extrabold text-center text-gray-800 mb-5">
-          Add Transaction
-        </h2>
+        <div className="flex justify-center  mb-3 gap-3">
+          <img
+            src={img}
+            alt=""
+            className="h-15 fle justify-center items-center"
+          />
+          <h2 className="text-3xl font-extrabold text-center text-gray-800 mb-5">
+            Add Transaction
+          </h2>
+        </div>
 
         <form
           onSubmit={handleAddTransaction}
@@ -194,7 +206,7 @@ const AddTransaction = () => {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             transition={{ type: "spring", stiffness: 300 }}
-            className="w-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white py-2.5 rounded-lg font-semibold hover:from-indigo-700 hover:to-purple-700 transition shadow-md"
+            className="w-full  cursor-pointer  bg-gradient-to-r from-teal-600 to-cyan-600 text-white py-2.5 rounded-lg font-semibold hover:from-indigo-700 hover:to-purple-700 transition shadow-md"
           >
             + Add Transaction
           </motion.button>

@@ -7,7 +7,7 @@ import { toast } from 'react-toastify';
 import Loading from './Loading';
 import { MdLogout } from 'react-icons/md';
 import { CgProfile } from 'react-icons/cg';
-import img from '../assets/dd.jpg'
+import img from '../assets/refund.png'
 import { RiHome4Line } from "react-icons/ri";
 import { GoReport } from "react-icons/go";
 
@@ -133,8 +133,8 @@ const Navbar = () => {
           </div>
           {/* profile logo is here  */}
           <div className="flex items-center">
-            <img src={img} className="hidden lg:block  h-10 " alt="" />
-            <h2 className="font-bold text-2xl lg:ml-3 text-center ">
+            <img src={img} className=" hidden lg:block  h-15 " alt="" />
+            <h2 className="font-bold text-2xl lg:ml-3 md:ml-3 sm:ml-3 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 bg-clip-text text-transparent text-center ">
               FinanceFlow
             </h2>
           </div>
@@ -181,6 +181,7 @@ const Navbar = () => {
               </li>
 
               {/* theme implementation here  */}
+
               <input
                 onChange={(e) => handleTheme(e.target.checked)}
                 type="checkbox"
@@ -214,6 +215,4 @@ const Navbar = () => {
 export default Navbar;
 
 
-  <div className="navbar-end">
-    <img className="w-10 h-10 cursor-pointer rounded-full bg-red-500" alt="" />
-  </div>;
+  

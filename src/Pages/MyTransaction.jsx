@@ -7,6 +7,7 @@ import Loading from "../Components/Loading";
 import { Link } from "react-router";
 import Swal from "sweetalert2";
 import useAxios from "./Hooks/useAxios";
+import bg from "../assets/bg2.svg";
 
 
 const MyTransaction = () => {
@@ -105,7 +106,7 @@ const MyTransaction = () => {
     const amount = e.target.amount.value;
     const description = e.target.description.value;
     const date = e.target.date.value;
-    console.log(type, category, amount, description, date);
+    // console.log(type, category, amount, description, date);
 
     const updateData = {
       type,
@@ -160,8 +161,8 @@ const MyTransaction = () => {
 
   return (
     <>
-      <div className="min-h-screen bg-gradient-to-br from-blue-500 via-purple-500 to-pink-500 px-4 py-10">
-        <h2 className="text-3xl font-extrabold text-white mb-8 text-center">
+      <div style={{backgroundImage:`url(${bg})`}} className="min-h-screen bg-[url'../ass'] px-4 py-10">
+        <h2 className="text-3xl font-extrabold  text-white mb-8 text-center">
           My Transactions
         </h2>
 

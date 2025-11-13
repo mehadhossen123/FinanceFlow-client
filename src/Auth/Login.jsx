@@ -6,6 +6,8 @@ import Swal from 'sweetalert2';
 import { toast } from 'react-toastify';
 import Loading from '../Components/Loading';
 import { motion } from 'framer-motion';
+import bg from '../assets/bg1.png'
+import img from "../assets/refund.png";
 
 const Login = () => {
     const [show,setShow]=useState(true)
@@ -91,24 +93,28 @@ const handleUserSignIn=(e)=>{
         </div>
 
         {/* Right side - Login form */}
-        <div className="bg-gradient-to-br from-teal-500  via-cyan-500 to-blue-600 flex items-center justify-center px-4 py-10">
+        <div
+          style={{ backgroundImage: `url(${bg})` }}
+          className="bg-gradient-to-br  flex items-center justify-center px-4 py-10"
+        >
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5, ease: "easeOut" }}
-            className="bg-white/90 backdrop-blur-md shadow-2xl rounded-2xl p-8 w-full max-w-md border border-white/30"
+            className="bg-white/90 backdrop-blur-md shadow-2xl rounded-2xl p-8 w-full mb-10 max-w-md border border-white/30"
           >
-            <h1 className="text-3xl font-extrabold text-center bg-gradient-to-r from-teal-600 via-cyan-500 to-blue-600 bg-clip-text text-transparent mb-2">
-              Please Login
-            </h1>
+            <div className='flex justify-center items-center gap-3 '>
+              <img src={img} alt="" className='h-15 fle justify-center items-center'/>
+              <h1 className="text-3xl font-extrabold text-center bg-gradient-to-r from-teal-600 via-cyan-500 to-blue-600 bg-clip-text text-transparent mb-2">
+                Please Login
+              </h1>
+            </div>
             <p className="text-center text-gray-500 text-sm mb-6">
               Sign in to manage your money and track your expenses.
             </p>
 
             {/* Login Form */}
-            <motion.form 
-            onSubmit={handleUserSignIn}
-             className=" h-[300px]">
+            <motion.form onSubmit={handleUserSignIn} className=" h-[300px]">
               {/* Email */}
               <div>
                 <label className="block text-gray-600 text-sm font-medium mb-1">
@@ -118,7 +124,7 @@ const handleUserSignIn=(e)=>{
                   whileHover={{ scale: 1.03 }}
                   whileFocus={{ scale: 1.02 }}
                   type="email"
-                  name='email'
+                  name="email"
                   placeholder="you@example.com"
                   className="w-full border border-gray-300 focus:border-teal-500 focus:ring-2 focus:ring-teal-200 rounded-lg px-4 py-2 outline-none transition duration-200"
                   required
@@ -126,38 +132,36 @@ const handleUserSignIn=(e)=>{
               </div>
 
               {/* Password */}
-               <div className="">
-                          <label className="block text-gray-600 text-sm font-medium mb-1">
-                            Password
-                          </label>
-                         
-                          <div className="relative">
-                            <motion.input
-                              whileHover={{ scale: 1.1, borderColor: "#A78BFA" }}
-                              whileFocus={{
-                                scale: 1.05,
-                                borderColor: "#6366F1",
-                                boxShadow: "0 0 10px rgba(99,102,241,0.6)",
-                              }}
-                              name="password"
-                              type={`${show ? "password" : "text"}`}
-                              placeholder="••••••••"
-                              className="w-full border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 rounded-lg px-4 py-2 outline-none transition duration-200"
-                              required
-                            />
-                            <p
-                              onClick={() =>setShow(!show)}
-                              className="absolute right-3 top-1/3 cursor-pointer"
-                            >
-                              {" "}
-                              {show ? <IoMdEyeOff /> : <IoIosEye />}
-                            </p>
-                          </div>
-                        </div>
-              
+              <div className="">
+                <label className="block text-gray-600 text-sm font-medium mb-1">
+                  Password
+                </label>
+
+                <div className="relative">
+                  <motion.input
+                    whileHover={{ scale: 1.1, borderColor: "#A78BFA" }}
+                    whileFocus={{
+                      scale: 1.05,
+                      borderColor: "#6366F1",
+                      boxShadow: "0 0 10px rgba(99,102,241,0.6)",
+                    }}
+                    name="password"
+                    type={`${show ? "password" : "text"}`}
+                    placeholder="••••••••"
+                    className="w-full border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 rounded-lg px-4 py-2 outline-none transition duration-200"
+                    required
+                  />
+                  <p
+                    onClick={() => setShow(!show)}
+                    className="absolute right-3 top-1/3 cursor-pointer"
+                  >
+                    {" "}
+                    {show ? <IoMdEyeOff /> : <IoIosEye />}
+                  </p>
+                </div>
+              </div>
 
               {/* Forgot Password */}
-             
 
               {/* Login Button */}
               <button
@@ -172,7 +176,7 @@ const handleUserSignIn=(e)=>{
 
               {/* Google Login */}
               <button
-              onClick={handleGoogleLogin}
+                onClick={handleGoogleLogin}
                 type="button"
                 className="w-full bg-white cursor-pointer text-black border border-gray-300 rounded-lg py-2 flex items-center justify-center gap-2 hover:bg-gray-100 transition"
               >
