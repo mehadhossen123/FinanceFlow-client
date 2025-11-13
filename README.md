@@ -12,7 +12,7 @@ To use this website user can manege there
 
 
 <!-- Links  -->
-**Live link client : 
+**Live link client : https://fabulous-figolla-4675c3.netlify.app/
 
 
 **Live link server : https://finance-flow-phi-inky.vercel.app/
