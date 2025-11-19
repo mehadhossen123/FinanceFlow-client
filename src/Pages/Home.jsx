@@ -63,7 +63,7 @@ const Home = () => {
               <div className="flex justify-center">
                 {" "}
                 <p className="text-2xl text-pink-500"> {name} :</p>{" "}
-                <p className='text-2xl font-bold'>{message}</p>
+                <p className='text-2xl font-bold text-pink-500'>{message}</p>
               </div>
             </p>
 
