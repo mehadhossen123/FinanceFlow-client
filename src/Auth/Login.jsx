@@ -75,7 +75,7 @@ const handleUserSignIn=(e)=>{
 
 
     return (
-      <section className="grid grid-cols-1 md:grid-cols-2 min-h-screen">
+      <section className="grid grid-cols-1 md:grid-cols-2 mt-20 min-h-screen">
         {/* Left side - Illustration */}
         <div className="flex flex-col justify-center items-center md:items-start px-6 md:px-24 bg-gray-50">
           <h1 className="text-3xl md:text-5xl font-bold text-gray-800 leading-tight mb-4 text-center md:text-left">

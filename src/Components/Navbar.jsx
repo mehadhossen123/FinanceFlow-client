@@ -103,7 +103,7 @@ const Navbar = () => {
   };
 
   return (
-    <div>
+    <div className="fixed w-full bg-white max-w-11/12 z-10 ">
       <div className="navbar ">
         <div className="navbar-start">
           <div className="dropdown">
@@ -154,6 +154,7 @@ const Navbar = () => {
             >
               <div className="w-10 rounded-full">
                 <img
+                  className="mr-10"
                   alt="User Profile"
                   referrerPolicy="no-referrer"
                   src={

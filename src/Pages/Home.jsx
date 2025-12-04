@@ -49,7 +49,7 @@ const Home = () => {
       <>
         <section
           style={{ backgroundImage: `url(${bg})` }}
-          className="0 md:mt-10"
+          className="mt-24"
         >
           <h1 className="text-center text-pink-500 mt-5 text-2xl">
             Your Transaction Summary{" "}

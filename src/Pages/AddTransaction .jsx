@@ -60,7 +60,7 @@ const AddTransaction = () => {
   return (
     <div
       style={{ backgroundImage: `url(${bg})` }}
-      className="min-h-screen flex items-center justify-center px-4 py-8"
+      className="min-h-screen flex items-center justify-center mt-20 px-4 py-8"
     >
       <div className="max-w-md w-full p-5 bg-white/90 backdrop-blur-md rounded-2xl shadow-2xl border border-white/20">
         <div className="flex justify-center  mb-3 gap-3">
