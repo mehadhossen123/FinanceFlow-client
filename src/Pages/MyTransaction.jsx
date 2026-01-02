@@ -161,7 +161,10 @@ const MyTransaction = () => {
 
   return (
     <>
-      <div style={{backgroundImage:`url(${bg})`}} className="min-h-screen bg-[url'../ass'] px-4 py-10">
+      <div
+        style={{ backgroundImage: `url(${bg})` }}
+        className="min-h-screen bg-[url'../ass'] px-4 py-10"
+      >
         <h2 className="text-3xl font-extrabold  text-white mb-8 text-center">
           My Transactions
         </h2>
@@ -342,6 +345,13 @@ const MyTransaction = () => {
           </div>
         </div>
       </dialog>
+      <div className="flex justify-center my-5 gap-5">
+        <button className="btn btn-secondary  ">Back</button>
+        {[...Array(8).keys()].map((_, i) => (
+          <button className="btn btn-primary ">{i+1}</button>
+        ))}
+        <button className="btn btn-secondary  ">Next</button>
+      </div>
     </>
   );
 };
