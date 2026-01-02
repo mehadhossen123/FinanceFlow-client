@@ -7,7 +7,7 @@ import { toast } from 'react-toastify';
 import Loading from './Loading';
 import { MdLogout } from 'react-icons/md';
 import { CgProfile } from 'react-icons/cg';
-import img from '../assets/refund.png'
+
 import { RiHome4Line } from "react-icons/ri";
 import { GoReport } from "react-icons/go";
 
@@ -16,6 +16,7 @@ import { GiTakeMyMoney } from 'react-icons/gi';
 import { IoMdPersonAdd } from 'react-icons/io';
 import { CiLogin } from "react-icons/ci";
 import { FaRegRegistered } from "react-icons/fa";
+import Logo from './Logo';
 
 
 const Navbar = () => {
@@ -103,7 +104,7 @@ const Navbar = () => {
   };
 
   return (
-    <div className="fixed w-full bg-white max-w-11/12 z-10 ">
+    <div className="fixed w-full top-0 z-50 bg-base-200 max-w-11/12  ">
       <div className="navbar ">
         <div className="navbar-start">
           <div className="dropdown">
@@ -132,12 +133,7 @@ const Navbar = () => {
             </ul>
           </div>
           {/* profile logo is here  */}
-          <div className="flex items-center">
-            <img src={img} className=" hidden lg:block  h-15 " alt="" />
-            <h2 className="font-bold text-2xl lg:ml-3 md:ml-3 sm:ml-3 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 bg-clip-text text-transparent text-center ">
-              FinanceFlow
-            </h2>
-          </div>
+       <Logo></Logo>
         </div>
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1">{links}</ul>

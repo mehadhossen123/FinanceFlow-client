@@ -32,9 +32,7 @@ const Banner = () => {
                 Stay on top of your spending and make better financial
                 decisions.
               </p>
-              <button className="mt-6 bg-amber-400 text-blue-800 font-semibold px-4 py-2 sm:px-6 sm:py-3 rounded-lg hover:bg-amber-500 transition text-sm sm:text-base md:text-lg">
-                Start Tracking
-              </button>
+             
             </div>
           </div>
         </SwiperSlide>
@@ -56,9 +54,7 @@ const Banner = () => {
                 Take control of your finances and build a smarter, brighter
                 tomorrow.
               </p>
-              <button className="mt-6 bg-amber-400 text-blue-800 font-semibold px-4 py-2 sm:px-6 sm:py-3 rounded-lg hover:bg-amber-500 transition text-sm sm:text-base md:text-lg">
-                Get Started
-              </button>
+              
             </div>
           </div>
         </SwiperSlide>
@@ -79,9 +75,7 @@ const Banner = () => {
                 Set goals, budget wisely, and achieve long-term financial
                 success.
               </p>
-              <button className="mt-6 bg-amber-400 text-blue-800 font-semibold px-4 py-2 sm:px-6 sm:py-3 rounded-lg hover:bg-amber-500 transition text-sm sm:text-base md:text-lg">
-                Plan Now
-              </button>
+             
             </div>
           </div>
         </SwiperSlide>

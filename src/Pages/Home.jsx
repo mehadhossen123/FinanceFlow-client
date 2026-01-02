@@ -47,13 +47,8 @@ const Home = () => {
   
     return (
       <>
-        <section
-          style={{ backgroundImage: `url(${bg})` }}
-          className="mt-24"
-        >
-          <h1 className="text-center text-pink-500 mt-5 text-2xl">
-            Your Transaction Summary{" "}
-          </h1>
+        <section style={{ backgroundImage: `url(${bg})` }} className="mt-24">
+        
           <div className="">
             <p
               className={`text-center font-bold ${
@@ -62,8 +57,20 @@ const Home = () => {
             >
               <div className="flex justify-center">
                 {" "}
-                <p className="text-2xl text-pink-500"> {name} :</p>{" "}
-                <p className='text-2xl font-bold text-pink-500'>{message}</p>
+                <h1
+                  className="text-3xl font-black 
+               bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 
+               bg-clip-text text-transparent"
+                >
+                 {name}
+                </h1>
+                <h1
+                  className="text-3xl font-black 
+               bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 
+               bg-clip-text text-transparent"
+                >
+                {message}
+                </h1>
               </div>
             </p>
 

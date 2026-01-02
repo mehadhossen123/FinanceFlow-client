@@ -6,7 +6,7 @@ import Swal from 'sweetalert2';
 import { toast } from 'react-toastify';
 import Loading from '../Components/Loading';
 import { motion } from 'framer-motion';
-import bg from '../assets/bg1.png'
+import bg from "../assets/bg2.svg";
 import img from "../assets/refund.png";
 
 const Login = () => {
@@ -75,7 +75,10 @@ const handleUserSignIn=(e)=>{
 
 
     return (
-      <section className="grid grid-cols-1 md:grid-cols-2 mt-20 min-h-screen">
+      <section
+        style={{ backgroundImage: `url(${bg})` }}
+        className="grid grid-cols-1 md:grid-cols-2 mt-20 min-h-screen"
+      >
         {/* Left side - Illustration */}
         <div className="flex flex-col justify-center items-center md:items-start px-6 md:px-24 bg-gray-50">
           <h1 className="text-3xl md:text-5xl font-bold text-gray-800 leading-tight mb-4 text-center md:text-left">
@@ -93,18 +96,19 @@ const handleUserSignIn=(e)=>{
         </div>
 
         {/* Right side - Login form */}
-        <div
-          style={{ backgroundImage: `url(${bg})` }}
-          className="bg-gradient-to-br  flex items-center justify-center px-4 py-10"
-        >
+        <div className="bg-gradient-to-br  flex items-center justify-center px-4 py-10">
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5, ease: "easeOut" }}
             className="bg-white/90 backdrop-blur-md shadow-2xl rounded-2xl p-8 w-full mb-10 max-w-md border border-white/30"
           >
-            <div className='flex justify-center items-center gap-3 '>
-              <img src={img} alt="" className='h-15 fle justify-center items-center'/>
+            <div className="flex justify-center items-center gap-3 ">
+              <img
+                src={img}
+                alt=""
+                className="h-15 fle justify-center items-center"
+              />
               <h1 className="text-3xl font-extrabold text-center bg-gradient-to-r from-teal-600 via-cyan-500 to-blue-600 bg-clip-text text-transparent mb-2">
                 Please Login
               </h1>
