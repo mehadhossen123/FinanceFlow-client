@@ -30,7 +30,7 @@ const Details = () => {
   const isIncome = type === "Income";
 
   return (
-    <div className="max-w-3xl mx-auto mt-10 p-8 bg-white bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 rounded-2xl shadow-lg transition-all duration-300">
+    <div className="max-w-3xl mx-auto my-24 p-8 bg-white bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 rounded-2xl shadow-lg transition-all duration-300">
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
         <h2 className="text-2xl md:text-3xl font-semibold text-gray-900 dark:text-white">
