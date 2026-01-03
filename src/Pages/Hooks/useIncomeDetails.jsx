@@ -20,7 +20,7 @@ const useIncomeDetails = () => {
        const fetchData = async () => {
          try {
            const res = await useSecure.get(`/add?email=${user?.email}`);
-           setMyTransaction(res.data);
+           setMyTransaction(res.data.result);
          } catch (error) {
            toast.error("Failed to fetch transactions");
          }

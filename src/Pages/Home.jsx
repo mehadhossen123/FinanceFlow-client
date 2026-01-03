@@ -38,7 +38,7 @@ const Home = () => {
   }, [totalIncome, totalExpense, presentBalance]);
   const name = user?.displayName.slice(0, 5);
 
-  // console.log(capitalName);
+
 
   return (
     <>

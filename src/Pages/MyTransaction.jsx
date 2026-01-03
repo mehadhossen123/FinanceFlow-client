@@ -12,23 +12,27 @@ const MyTransaction = () => {
   const [myTransaction, setMyTransaction] = useState([]); 
   const [transaction, setTransaction] = useState({}); 
   const [localLoading, setLocalLoading] = useState(true);
-  const [total, setTotal] = useState(0);
+ 
   const [totalPage, setTotalPage] = useState(0);
   const [currentPage, setCurrentPage] = useState(0);
   const limit = 8;
 
   const modalsRef = useRef();
   const useSecure = useAxios();
+  const [search,setSearch]=useState("")
+  console.log(search)
+
 
   useEffect(() => {
     if (!user?.email) return;
 
     const fetchData = async () => {
       try {
-        setLocalLoading(true);
+        if(search==="") setLocalLoading(true);
+       
         const skip = limit * currentPage;
         const res = await useSecure.get(
-          `/add?email=${user?.email}&limit=${limit}&skip=${skip}`
+          `/add?email=${user?.email}&limit=${limit}&skip=${skip}&search=${search}`
         );
 
         
@@ -36,7 +40,7 @@ const MyTransaction = () => {
         setMyTransaction(data);
 
         const totalCount = res?.data?.total || 0;
-        setTotal(totalCount);
+        // setTotal(totalCount);
         setTotalPage(Math.ceil(totalCount / limit));
       } catch (error) {
         console.error(error);
@@ -48,7 +52,7 @@ const MyTransaction = () => {
     };
 
     fetchData();
-  }, [user?.email, limit, currentPage]);
+  }, [user?.email, limit, currentPage,search]);
 
   if (localLoading) return <Loading />;
 
@@ -124,12 +128,26 @@ const MyTransaction = () => {
       style={{ backgroundImage: `url(${bg})` }}
       className="min-h-screen px-4 py-10"
     >
-      <h1 className="text-center text-secondary mt-20 font-bold text-2xl md:text-3xl my-5">
-        All Transactions
-      </h1>
+      <div className="mt-20  ">
+        <h1 className="text-center text-secondary  font-bold text-2xl md:text-3xl my-5">
+          All Transactions
+        </h1>
+        <div className="mt-5 flex items-center justify-center">
+          <input
+          onChange={(e)=>{
+            setSearch(e.target.value)
+            setCurrentPage(0)
+          
+          }}
+            type="text"
+            className=" bg-gray-400 rounded-l-sm my-5 placeholder:relative placeholder:left-3 w-[800px] py-3 border-gray-200  "
+            placeholder="Search by category"
+          />
+          <button type="submit" className="py-3  px-2 bg-primary rounded-r-sm cursor-pointer text-white font-bold">Search</button>
+        </div>
+      </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-
         {Array.isArray(myTransaction) && myTransaction.length === 0 ? (
           <p className="text-white col-span-full text-center">
             No transactions found.
@@ -203,7 +221,7 @@ const MyTransaction = () => {
             key={i}
             onClick={() => setCurrentPage(i)}
             className={`btn btn-sm ${
-              currentPage === i ? "bg-red-500 text-white" : ""
+              currentPage === i ? "bg-primary text-white" : ""
             }`}
           >
             {i + 1}
